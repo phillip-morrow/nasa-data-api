@@ -1,13 +1,20 @@
-sql-server:
+version: "2.3"
+
+services:
+  sql-server:
     image: mcr.microsoft.com/mssql/server:2017-latest
     environment:
-      - SA_PASSWORD=secrets!
+      - SA_PASSWORD=secrets123!
       - ACCEPT_EULA=Y
     volumes:
-      - sql-server:/var/opt/mssql
+      - ./sql-server:/var/opt/mssql
     ports:
       - "1433:1433"
 
-migrations:
+  migrations:
     image: dotnetroundhouse/roundhouse
-    
+    volumes:
+      - ./create-tables:/create-tables
+    depends_on:
+      sql-server:
+        condition: service_healthy
