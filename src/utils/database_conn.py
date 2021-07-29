@@ -7,4 +7,4 @@ def make_connection():
     user = "sa"
     password = "secrets123!"
 
-    return create_engine(f"mssql://{user}:{password}@{server}/database")
+    return create_engine(f"mssql://{user}:{password}@{server}/{database}")
